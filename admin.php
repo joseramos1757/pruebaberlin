@@ -1,3 +1,7 @@
+<?php
+session_start();
+if (isset($_SESSION["u_usuario"])) {
+ ?>
 <script>
 	function sololetras(e)
 	{
@@ -85,7 +89,8 @@
 
     <nav id="navbar" class="navbar" >
       <ul>
-        <li><a class="getstarted scrollto" href="index.html">VOLVER</a></li>
+        <li><a class="getstarted scrollto" href="login.php">VOLVER</a></li>
+        <li><a class="getstarted scrollto" href="clases/cerrar_sesion.php">CERRAR SESIÓN</a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
@@ -99,38 +104,32 @@
   <hr>
   <div class="container">
     <div class="row align-items-start">
-      <div class="col-lg-6 col-xl-6 mx-auto">
+      <div class="col-lg-12 col-xl-12 mx-auto">
         <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
   
           <div class="card-body p-4 p-sm-3">
-            <h2 class="card-title text-center mb-5 fw-light fs-3">LOGIN</h2>
-            
-            <form action="clases/loguear.php" method="POST">
+            <h2 class="card-title text-center mb-5 fw-light fs-3">SELECCIONE LA OPCIÓN</h2>
+
             <div class="row align-items-start">
-              <div class="form-floating mb-3 col-lg-12 col-xl-12 col-md-12">
-                <input name="usuario" type="text" class="form-control" id="usuario" placeholder="nombre" required autofocus">
-                <label for="usuario">USUARIO</label>
-              </div>
-
-             
-
-              <div class="form-floating mb-3 col-lg-12 col-xl-12 col-md-12">
-                <input type="text" name="contra" class="form-control" id="contra" placeholder="contraseña">
-                <label for="contraseña">CONTRASEÑA</label>
-              </div>
-       
-
-      
-              </div>
-            
-      
-              <hr>
-
-              <div class="d-grid mb-2 col-sm-4 col-lg-2 col-xl-2 mx-auto">
-                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase btn-center" type="submit">INGRESAR</button>
-              </div>
-
-            </form>
+                <div class="mb-3 col-lg-4 col-xl-4 col-md-4">
+                    <a href="registro.php">
+                <center><img src="assets/img/logo/usuario.jpg" alt="" style="width: 200px; heigth:200x;" class="img-responsive mb-3"></center>  
+                <center><button type="button" class="btn btn-primary">REGISTRO DE USUARIOS</button></center>
+                    </a>
+                </div>  
+                <div class="mb-3 col-lg-4 col-xl-4 col-md-4">
+                    <a href="registro.php">
+                <center><img src="assets/img/logo/estudiante.jpg" alt="" style="width: 200px; heigth:200x;" class="img-responsive mb-3"></center>  
+                <center><button type="button" class="btn btn-primary">REGISTRO DE ESTUDIANTES</button></center>
+                </a>
+                </div>  
+                <div class="mb-3 col-lg-4 col-xl-4 col-md-4">
+                    <a href="registro.php">
+                <center><img src="assets/img/logo/producto.jpg" alt="" style="width: 200px; heigth:200x;" class="img-responsive mb-3"></center>  
+                <center><button type="button" class="btn btn-primary">REGISTRO DE PRODUCTOS</button></center> 
+                </a>
+                </div>
+            </div>   
           </div>
         </div>
       </div>
@@ -154,3 +153,11 @@
   <script src="assets/js/main.js"></script>
 </body>
 </html>
+<?php 
+
+}
+else
+{
+	header("Location:index.html");
+}
+?>

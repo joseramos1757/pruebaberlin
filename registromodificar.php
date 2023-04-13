@@ -1,3 +1,7 @@
+<?php
+session_start();
+if (isset($_SESSION["u_usuario"])) {
+ ?>
 <script>
 	function sololetras(e)
 	{
@@ -85,7 +89,8 @@
 
     <nav id="navbar" class="navbar" >
       <ul>
-        <li><a class="getstarted scrollto" href="index.html">VOLVER</a></li>
+        <li><a class="getstarted scrollto" href="login.php">VOLVER</a></li>
+        <li><a class="getstarted scrollto" href="clases/cerrar_sesion.php">CERRAR SESIÓN</a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
@@ -99,45 +104,88 @@
   <hr>
   <div class="container">
     <div class="row align-items-start">
-      <div class="col-lg-6 col-xl-6 mx-auto">
+      <div class="col-lg-12 col-xl-12 mx-auto">
         <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
   
           <div class="card-body p-4 p-sm-3">
-            <h2 class="card-title text-center mb-5 fw-light fs-3">LOGIN</h2>
+          <?php
+	    /*la i viene de tabla.php ahi se denomino la nueva variable <td><a href="modificar.php?i=<?php echo $row['id']; ?>">modificar</a> </td> */
+	    $id=$_REQUEST['i'];
+		include("clases/conexion.php");
+		//igualando de la tabla nuestra columna en este caso id con nuestra variable que creamos ==> 	$id=$_REQUEST['i'];
+		$query="select * from usuarios WHERE id_usuario='$id'" ;
+		$resultado=$conexion->query($query);
+		$row=$resultado->fetch_assoc();
+		?>
+
+            <h2 class="card-title text-center mb-5 fw-light fs-3">REGISTRO DE USUARIOS</h2>
             
-            <form action="clases/loguear.php" method="POST">
+            <form action="registromodificarproceso.php?c=<?php echo $row['id_usuario']; ?>" method="POST">
             <div class="row align-items-start">
-              <div class="form-floating mb-3 col-lg-12 col-xl-12 col-md-12">
-                <input name="usuario" type="text" class="form-control" id="usuario" placeholder="nombre" required autofocus">
-                <label for="usuario">USUARIO</label>
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+                <input type="text" name="ci"  class="form-control" id="ci" placeholder="nombre" value="<?php echo $row['usuario']?>" required autofocus onkeypress="return solonumeros(event)">
+                <label for="ci">CARNET DE IDENTIDAD</label>
               </div>
 
-             
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+                <input type="text"name="nom" class="form-control" id="nombre" style="text-transform:uppercase;" placeholder="NOMBRES"  value="<?php echo $row['nombre']?>" onkeypress="return sololetras(event)">
+                <label for="nombre">NOMBRES</label>
+              </div>
+            
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+                <input type="text"name="ap" class="form-control" id="apellidos" placeholder="apellidos" style="text-transform:uppercase;"  value="<?php echo $row['apellido']?>" onkeypress="return sololetras(event)">
+                <label for="apellidos">APELLIDOS</label>
+              </div>
+              </div>
+              <div class="row align-items-start">
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+                <input type="text"name="cel" class="form-control" id="celular" placeholder="celular" required autofocus  value="<?php echo $row['celular']?>" onkeypress="return solonumeros(event)">
+                <label for="nombre">CELULAR</label>
+              </div>
 
-              <div class="form-floating mb-3 col-lg-12 col-xl-12 col-md-12">
-                <input type="text" name="contra" class="form-control" id="contra" placeholder="contraseña">
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+                <input type="text" name="contra" class="form-control" id="email" placeholder="contraseña" value="<?php echo $row['contra']?>" >
                 <label for="contraseña">CONTRASEÑA</label>
               </div>
        
 
-      
+              <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
+            
+                <select name="cargo" id="cargo" class="form-select" placeholder="cargo" value="<?php echo $opciones['id']?>" >  
+                <?php
+                include 'clases/conexion.php';
+                $consulta="select * from cargo";
+                $ejecutar=mysqli_query($conexion,$consulta) or die (mysqli_error($conexion));
+                ?>
+
+                <?php foreach ($ejecutar as $opciones): ?>
+
+                  <option value="<?php echo $opciones['id']?>"><?php echo $opciones['tipo']?></option>
+                  
+                
+                  <?php endforeach ?>
+            
+                CARGO</select>
+                <label for="password">CARGO</label>
+                  
+              </div>
               </div>
             
       
               <hr>
 
               <div class="d-grid mb-2 col-sm-4 col-lg-2 col-xl-2 mx-auto">
-                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase btn-center" type="submit">INGRESAR</button>
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase btn-center" type="submit">MODIFICAR</button>
               </div>
 
             </form>
           </div>
         </div>
-      </div>
-      
+
+       </div>
+    </div>
     </div>
   </div>
-  
 </body>
 
 
@@ -154,3 +202,11 @@
   <script src="assets/js/main.js"></script>
 </body>
 </html>
+<?php 
+
+}
+else
+{
+	header("Location:index.html");
+}
+?>
