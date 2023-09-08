@@ -89,6 +89,7 @@ if (isset($_SESSION["u_usuario"])) {
 
     <nav id="navbar" class="navbar" >
       <ul>
+        <li></li>
         <li><a class="getstarted scrollto" href="login.php">VOLVER</a></li>
         <li><a class="getstarted scrollto" href="clases/cerrar_sesion.php">CERRAR SESIÓN</a></li>
       </ul>
@@ -96,6 +97,7 @@ if (isset($_SESSION["u_usuario"])) {
     </nav><!-- .navbar -->
 
   </div>
+  
 </header><!-- End Header -->
 
 <body>
@@ -113,18 +115,18 @@ if (isset($_SESSION["u_usuario"])) {
             <form action="registroguardar.php" method="POST">
             <div class="row align-items-start">
               <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
-                <input type="text" name="ci"  class="form-control" id="ci" placeholder="nombre" required autofocus onkeypress="return solonumeros(event)">
-                <label for="ci">CARNET DE IDENTIDAD</label>
+                <input type="text" name="ci"  class="form-control" id="ci" placeholder="nombre" required autofocus onkeypress="return solonumeros(event)"> 
+                <label for="ci">CARNET DE IDENTIDAD</label>  
               </div>
 
               <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
                 <input type="text"name="nom" class="form-control" id="nombre" style="text-transform:uppercase;" placeholder="NOMBRES" onkeypress="return sololetras(event)">
-                <label for="nombre">NOMBRES</label>
+                <label for="nombre">NOMBRE(S)</label>
               </div>
             
               <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
                 <input type="text"name="ap" class="form-control" id="apellidos" placeholder="apellidos" style="text-transform:uppercase;" onkeypress="return sololetras(event)">
-                <label for="apellidos">APELLIDOS</label>
+                <label for="apellidos">APELLIDO(S)</label>
               </div>
               </div>
               <div class="row align-items-start">
@@ -149,12 +151,13 @@ if (isset($_SESSION["u_usuario"])) {
                 ?>
                   <option selected>SELECCIONE EL CARGO</option>
           
-                <?php foreach ($ejecutar as $opciones): ?>
+                <?php 
+                while ($mostrar=mysqli_fetch_assoc($ejecutar)){ ?>
 
-                  <option value="<?php echo $opciones['id']?>"><?php echo $opciones['tipo']?></option>
+                  <option value="<?php echo $mostrar['id']?>"><?php echo $mostrar['tipo']?></option>
               
                 
-                  <?php endforeach ?>
+                  <?php }?>
             
                 CARGO</select>
                 <label for="password">CARGO</label>

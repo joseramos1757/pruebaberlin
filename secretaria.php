@@ -112,7 +112,7 @@ if (isset($_SESSION["u_usuario"])) {
 
             <div class="row align-items-start">
                 <div class="mb-3 col-lg-6 col-xl-6 col-md-6">
-                    <a href="registro.php">
+                    <a href="estudiante6registro.php">
                 <center><img src="assets/img/logo/estudiante.jpg" alt="" style="width: 200px; heigth:200x;" class="img-responsive mb-3"></center>  
                 <center><button type="button" class="btn btn-primary">REGISTRO DE ESTUDIANTES</button></center>
                 </a>

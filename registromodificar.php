@@ -151,19 +151,23 @@ if (isset($_SESSION["u_usuario"])) {
 
               <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
             
-                <select name="cargo" id="cargo" class="form-select" placeholder="cargo" value="<?php echo $opciones['id']?>" >  
+                <select name="cargo" id="cargo" class="form-select" placeholder="cargo">  
                 <?php
                 include 'clases/conexion.php';
                 $consulta="select * from cargo";
                 $ejecutar=mysqli_query($conexion,$consulta) or die (mysqli_error($conexion));
-                ?>
-
-                <?php foreach ($ejecutar as $opciones): ?>
-
-                  <option value="<?php echo $opciones['id']?>"><?php echo $opciones['tipo']?></option>
-                  
-                
-                  <?php endforeach ?>
+                $datoscargo=mysqli_fetch_array($ejecutar);
+             
+                while ($mostrar=mysqli_fetch_array($ejecutar)){ 
+                  if($mostrar['tipo']==$datoscargo['tipo']){ ?>
+                  <option value="<?php echo $mostrar['id'];?>"selected>
+                  <?php echo $mostrar['tipo'];?>
+                  </option>
+                  <?php } else {?>
+                    <option value="<?php echo $mostrar['id']; ?>">
+                    <?php echo $mostrar['tipo'];?>
+                  </option>
+                <?php }} ?>
             
                 CARGO</select>
                 <label for="password">CARGO</label>
