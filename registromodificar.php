@@ -148,31 +148,28 @@ if (isset($_SESSION["u_usuario"])) {
                 <label for="contraseña">CONTRASEÑA</label>
               </div>
        
-
               <div class="form-floating mb-3 col-lg-4 col-xl-4 col-md-4">
             
-                <select name="cargo" id="cargo" class="form-select" placeholder="cargo">  
-                <?php
-                include 'clases/conexion.php';
-                $consulta="select * from cargo";
-                $ejecutar=mysqli_query($conexion,$consulta) or die (mysqli_error($conexion));
-                $datoscargo=mysqli_fetch_array($ejecutar);
-             
-                while ($mostrar=mysqli_fetch_array($ejecutar)){ 
-                  if($mostrar['tipo']==$datoscargo['tipo']){ ?>
-                  <option value="<?php echo $mostrar['id'];?>"selected>
-                  <?php echo $mostrar['tipo'];?>
-                  </option>
-                  <?php } else {?>
-                    <option value="<?php echo $mostrar['id']; ?>">
-                    <?php echo $mostrar['tipo'];?>
-                  </option>
-                <?php }} ?>
+            <select name="cargo" id="cargo" class="form-select" placeholder="cargo">  
+            <?php
+            include 'clases/conexion.php';
+            $consulta="select * from cargo";
+            $ejecutar=mysqli_query($conexion,$consulta) or die (mysqli_error($conexion));
+            ?>
+              <option selected>SELECCIONE EL CARGO</option>
+      
+            <?php 
+            while ($mostrar=mysqli_fetch_assoc($ejecutar)){ ?>
+
+              <option value="<?php echo $mostrar['id']?>"><?php echo $mostrar['tipo']?></option>
+          
             
-                CARGO</select>
-                <label for="password">CARGO</label>
-                  
-              </div>
+              <?php }?>
+        
+            CARGO</select>
+            <label for="password">CARGO</label>
+              
+          </div>
               </div>
             
       
